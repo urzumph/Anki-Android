@@ -1,0 +1,24 @@
+Change Deck.java:getNewCard() to skip cards with empty question/answer
+
+In Deck.java change 
+// TODO: The real methods to update cards on Anki should be implemented instead of this
+    public void updateAllCards() {
+        updateAllCardsFromPosition(0, Long.MAX_VALUE);
+    }
+to update only 2 * new cards per session before loading the new deck.
+This will require a name-change
+Deck.java:    // Optimization for updateAllCardsFromPosition and updateAllCards
+Deck.java:    public void updateAllCards() {
+Deck.java:        updateAllCardsFromPosition(0, Long.MAX_VALUE);
+Deck.java:    public long updateAllCardsFromPosition(long numUpdatedCards, long limitCards) {
+DeckTask.java:                    taskData.mDeck.updateAllCards();
+StudyOptions.java:            boolean updateAllCards = (requestCode == DOWNLOAD_SHARED_DECK);
+StudyOptions.java:            displayProgressDialogAndLoadDeck(updateAllCards);
+StudyOptions.java:    private void displayProgressDialogAndLoadDeck(boolean updateAllCards) {
+StudyOptions.java:            if (updateAllCards) {
+Looks like studyoptions is just handling deciding whether to updateAllCards based on whether or not we downloaded this deck.
+
+Change updateAllCardsFromPosition(long numUpdatedCards, long limitCards)
+so that it no longer takes an offset, but also ignores cards with questions/answers.
+
+Change Reviewer.java so that it launches a thread which runs updateAllCards on init of a deck. This should be done just before launching the deck. This thread needs to be truly asynchronous, and not the running + waiting style thread of DeckTask. The thread needs to run 2 x the number of cards / session in the deck and terminate silently upon completion.
