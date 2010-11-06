@@ -299,7 +299,6 @@ public class AnkiDroidWidget extends AppWidgetProvider {
 
         // Sorter for the decks based on number due
         public class ByDueComparator implements java.util.Comparator<DeckInformation> {
-            @Override
             public int compare(DeckInformation deck1, DeckInformation deck2) {
 
                 if (deck1.mDueCards == deck2.mDueCards) {
@@ -315,7 +314,6 @@ public class AnkiDroidWidget extends AppWidgetProvider {
         }
 
         private static final class AnkiFileFilter implements FileFilter {
-            @Override
             public boolean accept(File pathname) {
                 return pathname.isFile() && pathname.getName().endsWith(".anki");
             }

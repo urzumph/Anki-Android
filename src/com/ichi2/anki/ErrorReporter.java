@@ -74,9 +74,8 @@ public class ErrorReporter extends Activity {
             Button btnCancel = (Button) findViewById(R.id.btnIgnoreError);
 
             btnOk.setOnClickListener(new OnClickListener() {
-                @Override
                 public void onClick(View v) {
-                    try {
+                    try {               
                         sendErrorReport();
                     } catch (Exception e) {
                         Log.e(AnkiDroidApp.TAG, e.toString());
@@ -89,7 +88,6 @@ public class ErrorReporter extends Activity {
             });
 
             btnCancel.setOnClickListener(new OnClickListener() {
-                @Override
                 public void onClick(View v) {
                     deleteFiles();
                     setResult(RESULT_OK);

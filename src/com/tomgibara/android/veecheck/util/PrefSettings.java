@@ -70,25 +70,21 @@ public class PrefSettings implements VeecheckSettings {
     }
 
 
-    @Override
     public boolean isEnabled() {
         return prefs.getBoolean(KEY_ENABLED, DEFAULT_ENABLED);
     }
 
 
-    @Override
     public long getPeriod() {
         return prefs.getLong(KEY_PERIOD, DEFAULT_PERIOD);
     }
 
 
-    @Override
     public String getCheckUri() {
         return prefs.getString(KEY_CHECK_URI, DEFAULT_CHECK_URI);
     }
 
 
-    @Override
     public long getCheckInterval() {
         return prefs.getLong(KEY_CHECK_INTERVAL, DEFAULT_CHECK_INTERVAL);
     }

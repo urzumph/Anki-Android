@@ -1351,7 +1351,6 @@ public final class BigDate implements Cloneable, Serializable, Comparable {
      * @param other other BigDate to compare with this one
      * @return +ve if this&gt;other, 0 if this==other, -ve if this&lt;other
      */
-    @Override
     public final int compareTo(Object other) {
         return ordinal - ((BigDate) other).ordinal;
     }

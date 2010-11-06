@@ -54,7 +54,6 @@ public abstract class VeecheckActivity extends Activity implements OnClickListen
      * Responds to the "yes" and "no" buttons
      */
 
-    @Override
     public void onClick(View view) {
         Checkable stopCheckBox = getStopCheckBox();
         boolean stop = stopCheckBox == null ? false : stopCheckBox.isChecked();

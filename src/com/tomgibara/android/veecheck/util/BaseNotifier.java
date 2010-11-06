@@ -55,13 +55,11 @@ public abstract class BaseNotifier implements VeecheckNotifier {
     }
 
 
-    @Override
     public int getNotificationId() {
         return notificationId;
     }
 
 
-    @Override
     public Notification createNotification(Intent intent) {
         return createNotification(createPendingIntent(intent));
     }
@@ -93,7 +91,6 @@ public abstract class BaseNotifier implements VeecheckNotifier {
      * @return an intent generated from the supplied parameters, or null.
      */
 
-    @Override
     public Intent createIntent(String action, String data, String type, Map<String, String> extras) {
         Intent intent = new Intent(action);
         Uri uri = data == null ? null : Uri.parse(data);

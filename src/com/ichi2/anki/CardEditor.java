@@ -95,7 +95,6 @@ public class CardEditor extends Activity {
 
         mSave.setOnClickListener(new View.OnClickListener() {
 
-            @Override
             public void onClick(View v) {
 
                 Iterator<FieldEditText> iter = mEditFields.iterator();
@@ -111,7 +110,6 @@ public class CardEditor extends Activity {
 
         mCancel.setOnClickListener(new View.OnClickListener() {
 
-            @Override
             public void onClick(View v) {
                 setResult(RESULT_CANCELED);
                 finish();

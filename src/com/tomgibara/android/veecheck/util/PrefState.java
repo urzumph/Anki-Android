@@ -82,26 +82,22 @@ public class PrefState implements VeecheckState {
     }
 
 
-    @Override
     public long getLastCheck() {
         return prefs.getLong(KEY_LAST_CHECK, DEFAULT_LAST_CHECK);
     }
 
 
-    @Override
     public void setLastCheckNow(long lastCheck) {
         prefs.edit().putLong(KEY_LAST_CHECK, lastCheck).commit();
     }
 
 
-    @Override
     public void setIgnoredIntent(Intent intent) {
         prefs.edit().putString(KEY_INGNORED_INTENT, intentToString(intent)).commit();
 
     }
 
 
-    @Override
     public boolean isIgnoredIntent(Intent intent) {
         return intentToString(intent).equals(prefs.getString(KEY_INGNORED_INTENT, DEFAULT_IGNORED_INTENT));
     }

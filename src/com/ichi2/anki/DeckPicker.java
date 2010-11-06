@@ -100,7 +100,6 @@ public class DeckPicker extends Activity implements Runnable {
     // ----------------------------------------------------------------------------
 
     private AdapterView.OnItemClickListener mDeckSelHandler = new AdapterView.OnItemClickListener() {
-        @Override
         public void onItemClick(AdapterView<?> parent, View v, int p, long id) {
             mSelf.handleDeckSelection(p);
         }
@@ -135,19 +134,16 @@ public class DeckPicker extends Activity implements Runnable {
 
     private Connection.TaskListener mSyncAllDecksListener = new Connection.TaskListener() {
 
-        @Override
         public void onDisconnected() {
             showDialog(DIALOG_NO_CONNECTION);
         }
 
 
-        @Override
         public void onPreExecute() {
             // Pass
         }
 
 
-        @Override
         public void onProgressUpdate(Object... values) {
             if (mProgressDialog == null || !mProgressDialog.isShowing()) {
                 mProgressDialog = ProgressDialog.show(DeckPicker.this, (String) values[0], (String) values[1]);
@@ -158,7 +154,6 @@ public class DeckPicker extends Activity implements Runnable {
         }
 
 
-        @Override
         public void onPostExecute(Payload data) {
             Log.i(AnkiDroidApp.TAG, "onPostExecute");
             if (mProgressDialog != null) {
@@ -191,7 +186,6 @@ public class DeckPicker extends Activity implements Runnable {
         mSyncAllButton = (Button) findViewById(R.id.sync_all_button);
         mSyncAllButton.setOnClickListener(new OnClickListener() {
 
-            @Override
             public void onClick(View v) {
                 if (AnkiDroidApp.isUserLoggedIn()) {
                     SharedPreferences preferences = PrefSettings.getSharedPrefs(getBaseContext());
@@ -213,7 +207,6 @@ public class DeckPicker extends Activity implements Runnable {
                 R.id.DeckPickerProgress });
 
         mDeckListAdapter.setViewBinder(new SimpleAdapter.ViewBinder() {
-            @Override
             public boolean setViewValue(View view, Object data, String text) {
                 if (view instanceof ProgressBar) {
                     if (text.equals("true")) {
@@ -272,7 +265,6 @@ public class DeckPicker extends Activity implements Runnable {
                 builder.setMessage(res.getString(R.string.no_user_password_error_message));
                 builder.setPositiveButton(res.getString(R.string.log_in), new DialogInterface.OnClickListener() {
 
-                    @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent myAccount = new Intent(DeckPicker.this, MyAccount.class);
                         startActivity(myAccount);
@@ -418,7 +410,6 @@ public class DeckPicker extends Activity implements Runnable {
     }
 
 
-    @Override
     public void run() {
         Log.i(AnkiDroidApp.TAG, "Thread run - Beginning");
 
@@ -540,7 +531,6 @@ public class DeckPicker extends Activity implements Runnable {
     // ----------------------------------------------------------------------------
 
     private static final class AnkiFilter implements FileFilter {
-        @Override
         public boolean accept(File pathname) {
             if (pathname.isFile() && pathname.getName().endsWith(".anki")) {
                 return true;
@@ -550,7 +540,6 @@ public class DeckPicker extends Activity implements Runnable {
     }
 
     private static final class HashMapCompare implements Comparator<HashMap<String, String>> {
-        @Override
         public int compare(HashMap<String, String> object1, HashMap<String, String> object2) {
             // Order by last modification date (last deck modified first)
             if (object2.get("mod").compareToIgnoreCase(object1.get("mod")) != 0) {

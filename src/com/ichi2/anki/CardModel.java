@@ -295,7 +295,6 @@ public class CardModel implements Comparator<CardModel> {
      * @param object2
      * @return
      */
-    @Override
     public int compare(CardModel object1, CardModel object2) {
         return object1.mOrdinal - object2.mOrdinal;
     }

@@ -106,7 +106,6 @@ public class SharedDeckPicker extends Activity {
 
         mSharedDecksListView.setOnItemClickListener(new OnItemClickListener() {
 
-            @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Resources res = getResources();
                 Object obj = mAllSharedDecks.get(position);
@@ -306,7 +305,6 @@ public class SharedDeckPicker extends Activity {
         builder.setMessage(res.getString(R.string.connection_needed));
         builder.setPositiveButton(res.getString(R.string.ok), new OnClickListener() {
 
-            @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
             }
@@ -319,14 +317,12 @@ public class SharedDeckPicker extends Activity {
         builder.setMessage(res.getString(R.string.connection_error_return_message));
         builder.setPositiveButton(res.getString(R.string.retry), new OnClickListener() {
 
-            @Override
             public void onClick(DialogInterface dialog, int which) {
                 Connection.getSharedDecks(mGetSharedDecksListener, new Connection.Payload(new Object[] {}));
             }
         });
         builder.setNegativeButton(res.getString(R.string.cancel), new OnClickListener() {
 
-            @Override
             public void onClick(DialogInterface dialog, int which) {
                 SharedDeckPicker.this.finish();
             }
@@ -374,7 +370,6 @@ public class SharedDeckPicker extends Activity {
      */
     private ServiceConnection mConnection = new ServiceConnection() {
 
-        @Override
         public void onServiceConnected(ComponentName className, IBinder service) {
             // This is called when the connection with the service has been
             // established, giving us the service object we can use to
@@ -397,7 +392,6 @@ public class SharedDeckPicker extends Activity {
         }
 
 
-        @Override
         public void onServiceDisconnected(ComponentName name) {
             mDownloadManagerService = null;
         }
@@ -409,7 +403,6 @@ public class SharedDeckPicker extends Activity {
 
     private Connection.TaskListener mGetSharedDecksListener = new Connection.TaskListener() {
 
-        @Override
         public void onDisconnected() {
             Log.i(AnkiDroidApp.TAG, "onDisconnected");
             if (mNoConnectionAlert != null) {
@@ -419,7 +412,6 @@ public class SharedDeckPicker extends Activity {
 
 
         @SuppressWarnings("unchecked")
-        @Override
         public void onPostExecute(Payload data) {
             if (mProgressDialog != null) {
                 mProgressDialog.dismiss();
@@ -437,7 +429,6 @@ public class SharedDeckPicker extends Activity {
         }
 
 
-        @Override
         public void onPreExecute() {
             if (mProgressDialog == null || !mProgressDialog.isShowing()) {
                 mProgressDialog = ProgressDialog.show(SharedDeckPicker.this, "",
@@ -446,7 +437,6 @@ public class SharedDeckPicker extends Activity {
         }
 
 
-        @Override
         public void onProgressUpdate(Object... values) {
             // Pass
         }
@@ -466,7 +456,6 @@ public class SharedDeckPicker extends Activity {
          * dispatched through a thread pool running in each process, so the code executing here will NOT be running in
          * our main thread like most other things -- so, to update the UI, we need to use a Handler to hop over there.
          */
-        @Override
         public void publishProgress(List<SharedDeckDownload> downloads) throws RemoteException {
             Log.i(AnkiDroidApp.TAG, "publishProgress");
             setSharedDeckDownloads(downloads);
@@ -479,19 +468,16 @@ public class SharedDeckPicker extends Activity {
 
     public class SharedDecksAdapter extends BaseAdapter {
 
-        @Override
         public int getCount() {
             return mAllSharedDecks.size();
         }
 
 
-        @Override
         public Object getItem(int position) {
             return mAllSharedDecks.get(position);
         }
 
 
-        @Override
         public long getItemId(int position) {
             return position;
         }
@@ -503,7 +489,6 @@ public class SharedDeckPicker extends Activity {
         //}
 
 
-        @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View row = convertView;
             DownloadViewWrapper wrapper = null;

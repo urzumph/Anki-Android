@@ -117,7 +117,6 @@ public class CustomExceptionHandler implements Thread.UncaughtExceptionHandler {
     }
 
 
-    @Override
     public void uncaughtException(Thread t, Throwable e) {
         Log.i(AnkiDroidApp.TAG, "uncaughtException");
 

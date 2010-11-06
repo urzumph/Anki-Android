@@ -61,7 +61,6 @@ public class DeckPreferences extends PreferenceActivity implements OnSharedPrefe
             private ContentValues mUpdate = new ContentValues();
 
 
-            @Override
             public SharedPreferences.Editor clear() {
                 Log.d(AnkiDroidApp.TAG, "clear()");
                 mUpdate = new ContentValues();
@@ -69,7 +68,6 @@ public class DeckPreferences extends PreferenceActivity implements OnSharedPrefe
             }
 
 
-            @Override
             public boolean commit() {
                 Log.d(AnkiDroidApp.TAG, "DeckPreferences - commit() changes back to database");
 
@@ -103,31 +101,26 @@ public class DeckPreferences extends PreferenceActivity implements OnSharedPrefe
             }
 
 
-            @Override
             public SharedPreferences.Editor putBoolean(String key, boolean value) {
                 return this.putString(key, Boolean.toString(value));
             }
 
 
-            @Override
             public SharedPreferences.Editor putFloat(String key, float value) {
                 return this.putString(key, Float.toString(value));
             }
 
 
-            @Override
             public SharedPreferences.Editor putInt(String key, int value) {
                 return this.putString(key, Integer.toString(value));
             }
 
 
-            @Override
             public SharedPreferences.Editor putLong(String key, long value) {
                 return this.putString(key, Long.toString(value));
             }
 
 
-            @Override
             public SharedPreferences.Editor putString(String key, String value) {
                 Log.d(this.getClass().toString(), String.format("Editor.putString(key=%s, value=%s)", key, value));
                 mUpdate.put(key, value);
@@ -135,7 +128,6 @@ public class DeckPreferences extends PreferenceActivity implements OnSharedPrefe
             }
 
 
-            @Override
             public SharedPreferences.Editor remove(String key) {
                 Log.d(this.getClass().toString(), String.format("Editor.remove(key=%s)", key));
                 mUpdate.remove(key);
@@ -145,49 +137,41 @@ public class DeckPreferences extends PreferenceActivity implements OnSharedPrefe
         }
 
 
-        @Override
         public boolean contains(String key) {
             return mValues.containsKey(key);
         }
 
 
-        @Override
         public Editor edit() {
             return new Editor();
         }
 
 
-        @Override
         public Map<String, ?> getAll() {
             return mValues;
         }
 
 
-        @Override
         public boolean getBoolean(String key, boolean defValue) {
             return Boolean.valueOf(this.getString(key, Boolean.toString(defValue)));
         }
 
 
-        @Override
         public float getFloat(String key, float defValue) {
             return Float.valueOf(this.getString(key, Float.toString(defValue)));
         }
 
 
-        @Override
         public int getInt(String key, int defValue) {
             return Integer.valueOf(this.getString(key, Integer.toString(defValue)));
         }
 
 
-        @Override
         public long getLong(String key, long defValue) {
             return Long.valueOf(this.getString(key, Long.toString(defValue)));
         }
 
 
-        @Override
         public String getString(String key, String defValue) {
             Log.d(this.getClass().toString(), String.format("getString(key=%s, defValue=%s)", key, defValue));
 
@@ -200,13 +184,11 @@ public class DeckPreferences extends PreferenceActivity implements OnSharedPrefe
         public List<OnSharedPreferenceChangeListener> listeners = new LinkedList<OnSharedPreferenceChangeListener>();
 
 
-        @Override
         public void registerOnSharedPreferenceChangeListener(OnSharedPreferenceChangeListener listener) {
             listeners.add(listener);
         }
 
 
-        @Override
         public void unregisterOnSharedPreferenceChangeListener(OnSharedPreferenceChangeListener listener) {
             listeners.remove(listener);
         }
@@ -242,16 +224,11 @@ public class DeckPreferences extends PreferenceActivity implements OnSharedPrefe
     }
 
 
-    @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         // update values on changed preference
         // this.updateSummaries();
-    }
-
-
-    /**
-     * XXX Currently unused.
-     */
+    }    
+    
     protected void updateSummaries() {
         // for all text preferences, set summary as current database value
         for (String key : mPref.mValues.keySet()) {

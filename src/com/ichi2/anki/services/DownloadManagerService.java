@@ -489,7 +489,6 @@ public class DownloadManagerService extends Service {
      */
     private final IDownloadManagerService.Stub mBinder = new IDownloadManagerService.Stub() {
 
-        @Override
         public void registerPersonalDeckCallback(IPersonalDeckServiceCallback cb) {
             Log.i(AnkiDroidApp.TAG, "registerPersonalDeckCallback");
             if (cb != null) {
@@ -499,7 +498,6 @@ public class DownloadManagerService extends Service {
         }
 
 
-        @Override
         public void unregisterPersonalDeckCallback(IPersonalDeckServiceCallback cb) {
             Log.i(AnkiDroidApp.TAG, "unregisterPersonalDeckCallback");
             if (cb != null) {
@@ -508,7 +506,6 @@ public class DownloadManagerService extends Service {
         }
 
 
-        @Override
         public void registerSharedDeckCallback(ISharedDeckServiceCallback cb) throws RemoteException {
             Log.i(AnkiDroidApp.TAG, "registerSharedDeckCallback");
             if (cb != null) {
@@ -518,7 +515,6 @@ public class DownloadManagerService extends Service {
         }
 
 
-        @Override
         public void unregisterSharedDeckCallback(ISharedDeckServiceCallback cb) throws RemoteException {
             Log.i(AnkiDroidApp.TAG, "unregisterSharedDeckCallback");
             if (cb != null) {
@@ -527,7 +523,6 @@ public class DownloadManagerService extends Service {
         }
 
 
-        @Override
         public void downloadFile(Download download) throws RemoteException {
             if (download instanceof SharedDeckDownload) {
                 mSharedDeckDownloads.add((SharedDeckDownload) download);
@@ -538,7 +533,6 @@ public class DownloadManagerService extends Service {
         }
 
 
-        @Override
         public void resumeDownloadUpdating(Download download) throws RemoteException {
             if (download instanceof SharedDeckDownload) {
                 resumeDownload(download);
@@ -546,13 +540,11 @@ public class DownloadManagerService extends Service {
         }
 
 
-        @Override
         public List<Download> getPersonalDeckDownloads() throws RemoteException {
             return mPersonalDeckDownloads;
         }
 
 
-        @Override
         public List<SharedDeckDownload> getSharedDeckDownloads() throws RemoteException {
             return mSharedDeckDownloads;
         }

@@ -178,13 +178,11 @@ public class Download extends HashMap<String, Object> implements Parcelable {
     }
 
 
-    @Override
     public int describeContents() {
         return 0;
     }
 
 
-    @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(mUrl);
         dest.writeLong(mSize);
@@ -204,13 +202,11 @@ public class Download extends HashMap<String, Object> implements Parcelable {
 
     public static final Parcelable.Creator<Download> CREATOR = new Parcelable.Creator<Download>() {
 
-        @Override
         public Download createFromParcel(Parcel in) {
             return new Download(in);
         }
 
 
-        @Override
         public Download[] newArray(int size) {
             return new Download[size];
         }

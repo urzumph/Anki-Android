@@ -142,7 +142,6 @@ public class MyAccount extends Activity {
         Button loginButton = (Button) mLoginToMyAccountView.findViewById(R.id.login_button);
         loginButton.setOnClickListener(new OnClickListener() {
 
-            @Override
             public void onClick(View v) {
                 login();
             }
@@ -152,7 +151,6 @@ public class MyAccount extends Activity {
         Button signUpButton = (Button) mLoginToMyAccountView.findViewById(R.id.sign_up_button);
         signUpButton.setOnClickListener(new OnClickListener() {
 
-            @Override
             public void onClick(View v) {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(
                         R.string.ankionline_sign_up_url))));
@@ -165,7 +163,6 @@ public class MyAccount extends Activity {
         Button logoutButton = (Button) mLoggedIntoMyAccountView.findViewById(R.id.logout_button);
         logoutButton.setOnClickListener(new OnClickListener() {
 
-            @Override
             public void onClick(View v) {
                 logout();
             }
@@ -198,7 +195,6 @@ public class MyAccount extends Activity {
         builder.setMessage(res.getString(R.string.connection_error_message));
         builder.setPositiveButton(res.getString(R.string.retry), new DialogInterface.OnClickListener() {
 
-            @Override
             public void onClick(DialogInterface dialog, int which) {
                 login();
             }
@@ -212,13 +208,11 @@ public class MyAccount extends Activity {
      */
     Connection.TaskListener loginListener = new Connection.TaskListener() {
 
-        @Override
         public void onProgressUpdate(Object... values) {
             // Pass
         }
 
 
-        @Override
         public void onPreExecute() {
             Log.i(AnkiDroidApp.TAG, "onPreExcecute");
             if (mProgressDialog == null || !mProgressDialog.isShowing()) {
@@ -228,7 +222,6 @@ public class MyAccount extends Activity {
         }
 
 
-        @Override
         public void onPostExecute(Payload data) {
             Log.i(AnkiDroidApp.TAG, "onPostExecute, succes = " + data.success);
             if (mProgressDialog != null) {
@@ -258,7 +251,6 @@ public class MyAccount extends Activity {
         }
 
 
-        @Override
         public void onDisconnected() {
             if (mNoConnectionAlert != null) {
                 mNoConnectionAlert.show();

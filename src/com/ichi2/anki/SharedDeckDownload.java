@@ -151,13 +151,11 @@ public class SharedDeckDownload extends Download implements Parcelable {
 
     public static final Parcelable.Creator<SharedDeckDownload> CREATOR = new Parcelable.Creator<SharedDeckDownload>() {
 
-        @Override
         public SharedDeckDownload createFromParcel(Parcel in) {
             return new SharedDeckDownload(in);
         }
 
 
-        @Override
         public SharedDeckDownload[] newArray(int size) {
             return new SharedDeckDownload[size];
         }

@@ -137,7 +137,6 @@ public class Sound {
             sMediaPlayer.prepare();
             sMediaPlayer.setOnCompletionListener(new OnCompletionListener() {
 
-                @Override
                 public void onCompletion(MediaPlayer mp) {
                     releaseSound();
                     sNumSoundsPlayed++;

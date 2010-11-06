@@ -170,7 +170,6 @@ public class StudyOptions extends Activity {
      * Callbacks for UI events
      */
     private View.OnClickListener mButtonClickListener = new View.OnClickListener() {
-        @Override
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.studyoptions_start:
@@ -215,7 +214,6 @@ public class StudyOptions extends Activity {
     }
 
     private View.OnFocusChangeListener mEditFocusListener = new View.OnFocusChangeListener() {
-        @Override
         public void onFocusChange(View v, boolean hasFocus) {
             Deck deck = AnkiDroidApp.deck();
             if (!hasFocus) {
@@ -253,7 +251,6 @@ public class StudyOptions extends Activity {
     };
 
     private DialogInterface.OnClickListener mDialogSaveListener = new DialogInterface.OnClickListener() {
-        @Override
         public void onClick(DialogInterface dialog, int which) {
             Deck deck = AnkiDroidApp.deck();
             deck.setNewCardOrder(mSpinnerNewCardOrder.getSelectedItemPosition());
@@ -449,7 +446,6 @@ public class StudyOptions extends Activity {
         builder.setMessage(res.getString(R.string.no_user_password_error_message));
         builder.setPositiveButton(res.getString(R.string.log_in), new OnClickListener() {
 
-            @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent myAccount = new Intent(StudyOptions.this, MyAccount.class);
                 startActivity(myAccount);
@@ -463,7 +459,6 @@ public class StudyOptions extends Activity {
         builder.setMessage(res.getString(R.string.connection_error_message));
         builder.setPositiveButton(res.getString(R.string.retry), new OnClickListener() {
 
-            @Override
             public void onClick(DialogInterface dialog, int which) {
                 syncDeck();
             }
@@ -862,7 +857,6 @@ public class StudyOptions extends Activity {
 
     DeckTask.TaskListener mLoadDeckHandler = new DeckTask.TaskListener() {
 
-        @Override
         public void onPreExecute() {
             // if(updateDialog == null || !updateDialog.isShowing())
             // {
@@ -872,7 +866,6 @@ public class StudyOptions extends Activity {
         }
 
 
-        @Override
         public void onPostExecute(DeckTask.TaskData result) {
 
             // Close the previously opened deck.
@@ -916,7 +909,6 @@ public class StudyOptions extends Activity {
         }
 
 
-        @Override
         public void onProgressUpdate(DeckTask.TaskData... values) {
             // Pass
         }
@@ -924,7 +916,6 @@ public class StudyOptions extends Activity {
 
     Connection.TaskListener syncListener = new Connection.TaskListener() {
 
-        @Override
         public void onDisconnected() {
             if (mNoConnectionAlert != null) {
                 mNoConnectionAlert.show();
@@ -932,7 +923,6 @@ public class StudyOptions extends Activity {
         }
 
 
-        @Override
         public void onPostExecute(Payload data) {
             Log.i(AnkiDroidApp.TAG, "onPostExecute");
             if (mProgressDialog != null) {
@@ -958,13 +948,11 @@ public class StudyOptions extends Activity {
         }
 
 
-        @Override
         public void onPreExecute() {
             // Pass
         }
 
 
-        @Override
         public void onProgressUpdate(Object... values) {
             if (mProgressDialog == null || !mProgressDialog.isShowing()) {
                 mProgressDialog = ProgressDialog.show(StudyOptions.this, (String) values[0], (String) values[1]);

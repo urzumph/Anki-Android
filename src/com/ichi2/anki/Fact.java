@@ -201,7 +201,6 @@ public class Fact {
     }
 
     public static final class FieldOrdinalComparator implements Comparator<Field> {
-        @Override
         public int compare(Field object1, Field object2) {
             return object1.mOrdinal - object2.mOrdinal;
         }

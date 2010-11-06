@@ -187,7 +187,6 @@ public class Reviewer extends Activity {
     // Handler for the flip toggle button, between the question and the answer
     // of a card
     private CompoundButton.OnCheckedChangeListener mFlipCardHandler = new CompoundButton.OnCheckedChangeListener() {
-        @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean showAnswer) {
             Log.i(AnkiDroidApp.TAG, "Flip card changed:");
             Sound.stopSounds();
@@ -201,7 +200,6 @@ public class Reviewer extends Activity {
     };
 
     private View.OnClickListener mSelectEaseHandler = new View.OnClickListener() {
-        @Override
         public void onClick(View view) {
             Sound.stopSounds();
 
@@ -231,7 +229,6 @@ public class Reviewer extends Activity {
     };
 
     private View.OnLongClickListener mLongClickHandler = new View.OnLongClickListener() {
-        @Override
         public boolean onLongClick(View view) {
             Log.i(AnkiDroidApp.TAG, "onLongClick");
             Vibrator vibratorManager = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -242,38 +239,32 @@ public class Reviewer extends Activity {
     };
 
     private DeckTask.TaskListener mMarkCardHandler = new DeckTask.TaskListener() {
-        @Override
         public void onPreExecute() {
             mProgressDialog = ProgressDialog.show(Reviewer.this, "", "Saving changes...", true);
         }
 
 
-        @Override
         public void onProgressUpdate(DeckTask.TaskData... values) {
             mCurrentCard = values[0].getCard();
         }
 
 
-        @Override
         public void onPostExecute(DeckTask.TaskData result) {
             mProgressDialog.dismiss();
         }
     };
 
     private DeckTask.TaskListener mUpdateCardHandler = new DeckTask.TaskListener() {
-        @Override
         public void onPreExecute() {
             mProgressDialog = ProgressDialog.show(Reviewer.this, "", "Saving changes...", true);
         }
 
 
-        @Override
         public void onProgressUpdate(DeckTask.TaskData... values) {
             mCurrentCard = values[0].getCard();
         }
 
 
-        @Override
         public void onPostExecute(DeckTask.TaskData result) {
 
             // Set the correct value for the flip card button - That triggers the
@@ -300,7 +291,6 @@ public class Reviewer extends Activity {
         private long mStart2;
 
 
-        @Override
         public void onPreExecute() {
             mStart = System.currentTimeMillis();
             mStart2 = mStart;
@@ -309,7 +299,6 @@ public class Reviewer extends Activity {
         }
 
 
-        @Override
         public void onProgressUpdate(DeckTask.TaskData... values) {
             Resources res = getResources();
             mSessionComplete = false;
@@ -371,7 +360,6 @@ public class Reviewer extends Activity {
         }
 
 
-        @Override
         public void onPostExecute(DeckTask.TaskData result) {
             // Check for no more cards before session complete. If they are both true,
             // no more cards will take precedence when returning to study options.

@@ -95,7 +95,6 @@ public class PersonalDeckPicker extends Activity {
         mPersonalDecksListView.setAdapter(mPersonalDecksAdapter);
         mPersonalDecksListView.setOnItemClickListener(new OnItemClickListener() {
 
-            @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String deckName = (String) mAllPersonalDecks.get(position);
                 Download personalDeckDownload = new Download(deckName);
@@ -229,7 +228,6 @@ public class PersonalDeckPicker extends Activity {
         builder.setMessage(res.getString(R.string.connection_needed));
         builder.setPositiveButton(res.getString(R.string.ok), new OnClickListener() {
 
-            @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
             }
@@ -242,14 +240,12 @@ public class PersonalDeckPicker extends Activity {
         builder.setMessage(res.getString(R.string.connection_error_return_message));
         builder.setPositiveButton(res.getString(R.string.retry), new OnClickListener() {
 
-            @Override
             public void onClick(DialogInterface dialog, int which) {
                 getPersonalDecks();
             }
         });
         builder.setNegativeButton(res.getString(R.string.cancel), new OnClickListener() {
 
-            @Override
             public void onClick(DialogInterface dialog, int which) {
                 PersonalDeckPicker.this.finish();
             }
@@ -307,7 +303,6 @@ public class PersonalDeckPicker extends Activity {
      */
     private ServiceConnection mConnection = new ServiceConnection() {
 
-        @Override
         public void onServiceConnected(ComponentName className, IBinder service) {
             // This is called when the connection with the service has been
             // established, giving us the service object we can use to
@@ -330,7 +325,6 @@ public class PersonalDeckPicker extends Activity {
         }
 
 
-        @Override
         public void onServiceDisconnected(ComponentName name) {
             mDownloadManagerService = null;
         }
@@ -342,7 +336,6 @@ public class PersonalDeckPicker extends Activity {
 
     private Connection.TaskListener getPersonalDecksListener = new Connection.TaskListener() {
 
-        @Override
         public void onDisconnected() {
             Log.i(AnkiDroidApp.TAG, "onDisconnected");
             if (mNoConnectionAlert != null) {
@@ -352,7 +345,6 @@ public class PersonalDeckPicker extends Activity {
 
 
         @SuppressWarnings("unchecked")
-        @Override
         public void onPostExecute(Payload data) {
             Log.i(AnkiDroidApp.TAG, "onPostExecute");
             if (mProgressDialog != null) {
@@ -372,7 +364,6 @@ public class PersonalDeckPicker extends Activity {
         }
 
 
-        @Override
         public void onPreExecute() {
             if (mProgressDialog == null || !mProgressDialog.isShowing()) {
                 mProgressDialog = ProgressDialog.show(PersonalDeckPicker.this, "",
@@ -381,7 +372,6 @@ public class PersonalDeckPicker extends Activity {
         }
 
 
-        @Override
         public void onProgressUpdate(Object... values) {
             // Pass
         }
@@ -396,7 +386,6 @@ public class PersonalDeckPicker extends Activity {
      * This implementation is used to receive callbacks from the remote service.
      */
     private IPersonalDeckServiceCallback mCallback = new IPersonalDeckServiceCallback.Stub() {
-        @Override
         public void publishProgress(List<Download> downloads) throws RemoteException {
             setPersonalDeckDownloads(downloads);
         }
@@ -408,19 +397,16 @@ public class PersonalDeckPicker extends Activity {
 
     public class PersonalDecksAdapter extends BaseAdapter {
 
-        @Override
         public int getCount() {
             return mAllPersonalDecks.size();
         }
 
 
-        @Override
         public Object getItem(int position) {
             return mAllPersonalDecks.get(position);
         }
 
 
-        @Override
         public long getItemId(int position) {
             return position;
         }
@@ -432,7 +418,6 @@ public class PersonalDeckPicker extends Activity {
         }
 
 
-        @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View row = convertView;
             DownloadViewWrapper wrapper = null;

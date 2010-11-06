@@ -123,7 +123,6 @@ public abstract class VeecheckService extends Service {
 
     void notifyAndStop(final VeecheckResult result) {
         handler.post(new Runnable() {
-            @Override
             public void run() {
                 Log.d(LOG_TAG, "Service thread reports completion.");
                 try {
