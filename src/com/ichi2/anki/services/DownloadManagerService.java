@@ -934,19 +934,21 @@ public class DownloadManagerService extends Service {
                 String updatedCardsPref = "numUpdatedCards:" + mDestination + "/tmp/" + download.getTitle()
                         + ".anki.updating";
                 long totalCards = deck.retrieveCardCount();
-                download.setNumTotalCards((int) totalCards);
+                long cardsToUpdate = Math.min(200, totalCards);
+                download.setNumTotalCards((int) cardsToUpdate);
                 long updatedCards = pref.getLong(updatedCardsPref, 0);
                 download.setNumUpdatedCards((int) updatedCards);
-                long batchSize = Math.max(100, totalCards / 200);
+                long batchSize = 100;
+                //Math.max(100, totalCards / 200);
                 mRecentBatchTimings = new long[sRunningAvgLength];
-                mTotalBatches = ((double) totalCards) / batchSize;
+                mTotalBatches = ((double) cardsToUpdate) / batchSize;
                 int currentBatch = (int) (updatedCards / batchSize);
                 long runningAvgCount = 0;
                 long batchStart;
                 mElapsedTime = 0;
-                while (updatedCards < totalCards && download.getStatus() == SharedDeckDownload.UPDATING) {
+                while (updatedCards < cardsToUpdate && download.getStatus() == SharedDeckDownload.UPDATING) {
                     batchStart = System.currentTimeMillis();
-                    updatedCards = deck.updateAllCardsFromPosition(updatedCards, batchSize);
+                    updatedCards += deck.updateCards(batchSize);
                     Editor editor = pref.edit();
                     editor.putLong(updatedCardsPref, updatedCards);
                     editor.commit();

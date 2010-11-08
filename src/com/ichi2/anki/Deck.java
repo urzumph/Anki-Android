@@ -758,8 +758,10 @@ public class Deck {
         long id;
         try {
             id = AnkiDatabaseManager.getDatabase(mDeckPath).queryScalar(
-                    "SELECT id " + "FROM " + newCardTable() + "LIMIT 1");
+                    "SELECT id " + "FROM " + newCardTable() + " WHERE QUESTION != \"\" AND ANSWER != \"\" LIMIT 1");
+            //Log.w(AnkiDroidApp.TAG, "Selected new card " + new Long(id).toString());
         } catch (Exception e) {
+        	//Log.w(AnkiDroidApp.TAG, e);
             return 0;
         }
         return id;
@@ -838,23 +840,24 @@ public class Deck {
 
     // TODO: The real methods to update cards on Anki should be implemented instead of this
     public void updateAllCards() {
-        updateAllCardsFromPosition(0, Long.MAX_VALUE);
+        updateCards(Long.MAX_VALUE);
     }
 
 
-    public long updateAllCardsFromPosition(long numUpdatedCards, long limitCards) {
+    public long updateCards(long limitCards) {
+		long numUpdatedCards = 0;
         AnkiDb ankiDB = AnkiDatabaseManager.getDatabase(mDeckPath);
         // TODO: Cache this query, order by FactId, Id
-        Cursor cursor = ankiDB.getDatabase().rawQuery("SELECT id, factId " + "FROM cards " + "ORDER BY factId, id "
-                + "LIMIT " + limitCards + " OFFSET " + numUpdatedCards, null);
-
+        Cursor cursor = ankiDB.getDatabase().rawQuery("SELECT id, factId " + "FROM cards WHERE question = \"\" AND answer = \"\" " + "ORDER BY factId, id "
+                + "LIMIT " + limitCards, null);
+        
         ankiDB.getDatabase().beginTransaction();
         try {
             while (cursor.moveToNext()) {
                 // Get card
                 Card card = new Card(this);
                 card.fromDB(cursor.getLong(0));
-                Log.i(AnkiDroidApp.TAG, "Card id = " + card.getId() + ", numUpdatedCards = " + numUpdatedCards);
+                Log.i(AnkiDroidApp.TAG, "Card id = " + card.getId() + ", limit = " + limitCards);
 
                 // Load tags
                 card.loadTags();

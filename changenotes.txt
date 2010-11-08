@@ -1,4 +1,13 @@
+Need to make this work with DownloadManagerService
+Perhaps this could be done by setting the number of cards to update to be 200 or so.
+
+
+DONE:
+
 Change Deck.java:getNewCard() to skip cards with empty question/answer
+Change updateAllCardsFromPosition(long numUpdatedCards, long limitCards)
+so that it no longer takes an offset, but also ignores cards with questions/answers.
+Change Reviewer.java so that it launches a thread which runs updateAllCards on init of a deck. This should be done just before launching the deck. This thread needs to be truly asynchronous, and not the running + waiting style thread of DeckTask. The thread needs to run 2 x the number of cards / session in the deck and terminate silently upon completion.
 
 In Deck.java change 
 // TODO: The real methods to update cards on Anki should be implemented instead of this
@@ -18,7 +27,9 @@ StudyOptions.java:    private void displayProgressDialogAndLoadDeck(boolean upda
 StudyOptions.java:            if (updateAllCards) {
 Looks like studyoptions is just handling deciding whether to updateAllCards based on whether or not we downloaded this deck.
 
-Change updateAllCardsFromPosition(long numUpdatedCards, long limitCards)
-so that it no longer takes an offset, but also ignores cards with questions/answers.
+Heisig's remember the kanji, first deck is screwed?
+Consider moving updateDynamicIndices to DownloadManagerService to avoid long wait on first load.
 
-Change Reviewer.java so that it launches a thread which runs updateAllCards on init of a deck. This should be done just before launching the deck. This thread needs to be truly asynchronous, and not the running + waiting style thread of DeckTask. The thread needs to run 2 x the number of cards / session in the deck and terminate silently upon completion.
+For use with 0.4, create code to check if there are empty string question/answers and run thread on startup.
+Download deck, alter question/answer formats and run computation code on desktop. Copy the result to phone once done.
+Fix up downloadmanagerservice update code and submit patch

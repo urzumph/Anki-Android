@@ -95,7 +95,11 @@ public class DeckTask extends AsyncTask<DeckTask.TaskData, DeckTask.TaskData, De
             case TASK_TYPE_LOAD_DECK_AND_UPDATE_CARDS:
                 TaskData taskData = doInBackgroundLoadDeck(params);
                 if (taskData.mInteger == DECK_LOADED) {
-                    taskData.mDeck.updateAllCards();
+                	// Using 200 because since the deck is newly downloaded, we can't expect getNewCardsPerDay()
+                	// to accurately reflect 1 session's usage - the user could change the setting right after the
+                	// deck starts and then we wouldn't have enough cards. 200 is enough to give us 2 sessions at
+                	// maximum card limit, and shouldn't take too long to process on a normal phone.
+                    //taskData.mDeck.updateCards(200);
                     taskData.mCard = taskData.mDeck.getCurrentCard();
                 }
                 return taskData;
@@ -198,11 +202,15 @@ public class DeckTask extends AsyncTask<DeckTask.TaskData, DeckTask.TaskData, De
     private TaskData doInBackgroundLoadDeck(TaskData... params) {
         String deckFilename = params[0].getString();
         Log.i(AnkiDroidApp.TAG, "doInBackgroundLoadDeck - deckFilename = " + deckFilename);
-
+        
         Log.i(AnkiDroidApp.TAG, "loadDeck - SD card mounted and existent file -> Loading deck...");
         try {
             // Open the right deck.
             Deck deck = Deck.openDeck(deckFilename);
+            // Start the background updating code.
+            Thread idleUpdateThread = new Thread(new idleUpdater(deck));
+            idleUpdateThread.setPriority(Thread.MIN_PRIORITY);
+            idleUpdateThread.start();
             // Start by getting the first card and displaying it.
             Card card = deck.getCard();
             Log.i(AnkiDroidApp.TAG, "Deck loaded!");
@@ -334,6 +342,20 @@ public class DeckTask extends AsyncTask<DeckTask.TaskData, DeckTask.TaskData, De
             return mMsg;
         }
 
+    }
+    
+    private class idleUpdater implements Runnable {
+    	private Deck deck;
+    	public idleUpdater(Deck d) {
+    		deck = d;
+    	}
+    	
+    	public void run() {
+    		try {
+    			Thread.sleep(1000);
+    		} catch (InterruptedException e) {};
+    		deck.updateCards(deck.getNewCardsPerDay()*2);
+    	}
     }
 
 }
